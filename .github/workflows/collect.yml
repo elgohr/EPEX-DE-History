@@ -1,0 +1,30 @@
+name: Collect data
+on:
+  push:
+    branches:
+      - 'main'
+  schedule:
+    - cron: '0 12 * * *'
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10.13'
+          cache: 'pipenv'
+      - name: Install pipenv
+        run: curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
+      - name: collect
+        run: pipenv install && pipenv run python main.py
+      - name: Commit new map
+        run: |
+          git config --global user.name 'Collect Bot'
+          git config --global user.email 'noreply@gohr.digital'
+          git add .
+          git commit -m ":arrow_up: Add data for today"
+          git pull -r
+          git push
