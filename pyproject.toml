@@ -1,0 +1,17 @@
+[project]
+name = "epex-de-history"
+version = "0.1.0"
+description = "This repository contains historic data from EPEX spot market"
+readme = "README.md"
+authors = [
+    { name = "Lars Gohr", email = "lars@gohr.digital" }
+]
+requires-python = ">=3.13"
+dependencies = []
+
+[project.scripts]
+epex-de-history = "epex_de_history:main"
+
+[build-system]
+requires = ["uv_build>=0.13.7,<0.14.0"]
+build-backend = "uv_build"
